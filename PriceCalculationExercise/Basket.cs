@@ -71,9 +71,10 @@ namespace PriceCalculationExercise
             var discount = 0.0;
 
             var milks = _contents.Where(x => x == "milk");
-            if (milks.Count() >= 4)
+            if (milks.Count() > 3)
             {
-                discount += _priceList["milk"];
+                var numberOfMilkQuartets = milks.Count() / 4;
+                discount += _priceList["milk"] * numberOfMilkQuartets;
             }
 
             return discount;
