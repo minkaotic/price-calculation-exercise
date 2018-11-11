@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace PriceCalculationExercise
 {
@@ -6,21 +7,21 @@ namespace PriceCalculationExercise
     {
         private List<string> _contents = new List<string>();
 
+        private readonly Dictionary<string, double> _priceList = new Dictionary<string, double>
+        {
+            {"butter", 0.80},
+            {"milk", 1.15},
+            {"bread", 1.00}
+        };
+
         public double Total()
         {
-            if (_contents.Contains("butter"))
+            if (_contents.Count == 0)
             {
-                return 0.80;
+                return 0;
             }
-            else if (_contents.Contains("milk"))
-            {
-                return 1.15;
-            }
-            else if (_contents.Contains("bread"))
-            {
-                return 1.00;
-            }
-            return 0;
+
+            return _priceList[_contents.First()];
         }
 
         public void Add(string item)
