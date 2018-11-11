@@ -16,12 +16,18 @@ namespace PriceCalculationExercise
 
         public double Total()
         {
+            var total = 0.0;
             if (_contents.Count == 0)
             {
-                return 0;
+                return total;
             }
 
-            return _priceList[_contents.First()];
+            foreach (var item in _contents)
+            {
+                total += _priceList[item];
+            }
+
+            return total;
         }
 
         public void Add(string item)

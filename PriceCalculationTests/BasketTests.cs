@@ -27,5 +27,18 @@ namespace PriceCalculationTests
 
             Assert.That(total, Is.EqualTo(expectedPrice));
         }
+
+        [Test]
+        public void Given_the_basket_has_1_bread_1_butter_and_1_milk_the_total_should_be_2_95()
+        {
+            var basket = new Basket();
+            basket.Add("bread");
+            basket.Add("butter");
+            basket.Add("milk");
+
+            var total = basket.Total();
+
+            Assert.That(total, Is.EqualTo(2.95));
+        }
     }
 }
