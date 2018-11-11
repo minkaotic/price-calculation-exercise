@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PriceCalculationExercise
 {
@@ -13,6 +12,12 @@ namespace PriceCalculationExercise
             {"butter", 0.80},
             {"milk", 1.15},
             {"bread", 1.00}
+        };
+
+        private readonly IEnumerable<IOffer> _offers = new List<IOffer>
+        {
+            new Buy3MilkGet4ThFree(),
+            new Buy2ButterGet1BreadAtHalfPrice()
         };
 
         public void Add(string item)
@@ -48,33 +53,9 @@ namespace PriceCalculationExercise
         {
             var discount = 0.0;
 
-            discount += Buy2ButterGet1BreadAtHalfPrice();
-            discount += Buy3MilkGet4ThFree();
-
-            return discount;
-        }
-
-        private double Buy2ButterGet1BreadAtHalfPrice()
-        {
-            var discount = 0.0;
-
-            var butters = _contents.Where(x => x == "butter");
-            if (butters.Count() == 2 && _contents.Contains("bread"))
+            foreach (var offer in _offers)
             {
-                discount += _priceList["bread"] / 2;
-            }
-            return discount;
-        }
-
-        private double Buy3MilkGet4ThFree()
-        {
-            var discount = 0.0;
-
-            var milks = _contents.Where(x => x == "milk");
-            if (milks.Count() > 3)
-            {
-                var numberOfMilkQuartets = milks.Count() / 4;
-                discount += _priceList["milk"] * numberOfMilkQuartets;
+                discount += offer.DiscountFor(_contents, _priceList);
             }
 
             return discount;
