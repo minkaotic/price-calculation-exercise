@@ -54,5 +54,19 @@ namespace PriceCalculationTests
 
             Assert.That(total, Is.EqualTo(3.10));
         }
+
+        [Test]
+        public void Given_the_basket_has_4_milk_the_total_should_be_3_45()
+        {
+            var basket = new Basket();
+            basket.Add("milk");
+            basket.Add("milk");
+            basket.Add("milk");
+            basket.Add("milk");
+
+            var total = basket.Total();
+
+            Assert.That(total, Is.EqualTo(3.45));
+        }
     }
 }
