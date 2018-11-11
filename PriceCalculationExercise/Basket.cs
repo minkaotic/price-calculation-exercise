@@ -5,20 +5,25 @@ namespace PriceCalculationExercise
 {
     public class Basket
     {
-        private readonly List<string> _contents = new List<string>();
+        private readonly List<string> _contents;
+        private readonly Dictionary<string, double> _priceList;
+        private readonly IEnumerable<IOffer> _offers;
 
-        private readonly Dictionary<string, double> _priceList = new Dictionary<string, double>
+        public Basket()
         {
-            {"butter", 0.80},
-            {"milk", 1.15},
-            {"bread", 1.00}
-        };
-
-        private readonly IEnumerable<IOffer> _offers = new List<IOffer>
-        {
-            new Buy3MilkGet4ThFree(),
-            new Buy2ButterGet1BreadAtHalfPrice()
-        };
+            _contents = new List<string>();
+            _priceList = new Dictionary<string, double>
+            {
+                {"butter", 0.80},
+                {"milk", 1.15},
+                {"bread", 1.00}
+            };
+            _offers = new List<IOffer>
+            {
+                new Buy3MilkGet4ThFree(),
+                new Buy2ButterGet1BreadAtHalfPrice()
+            };
+        }
 
         public void Add(string item)
         {
