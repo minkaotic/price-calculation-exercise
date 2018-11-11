@@ -12,12 +12,20 @@ namespace PriceCalculationExercise
             {
                 return 0.80;
             }
+            else if (_contents.Contains("milk"))
+            {
+                return 1.15;
+            }
+            else if (_contents.Contains("bread"))
+            {
+                return 1.00;
+            }
             return 0;
         }
 
-        public void Add(string butter)
+        public void Add(string item)
         {
-            _contents.Add("butter");
+            _contents.Add(item);
         }
     }
 }

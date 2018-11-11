@@ -15,15 +15,17 @@ namespace PriceCalculationTests
             Assert.That(total, Is.EqualTo(0));
         }
 
-        [Test]
-        public void Given_the_basket_contains_one_butter_the_total_should_be_80_pence()
+        [TestCase("butter", 0.80)]
+        [TestCase("milk", 1.15)]
+        [TestCase("bread", 1.00)]
+        public void Given_the_basket_contains_an_individual_item_the_total_should_be_correct(string item, double expectedPrice)
         {
             var basket = new Basket();
-            basket.Add("butter");
+            basket.Add(item);
 
             var total = basket.Total();
 
-            Assert.That(total, Is.EqualTo(0.80));
+            Assert.That(total, Is.EqualTo(expectedPrice));
         }
     }
 }
