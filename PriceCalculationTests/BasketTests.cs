@@ -18,7 +18,7 @@ namespace PriceCalculationTests
         [TestCase("butter", 0.80)]
         [TestCase("milk", 1.15)]
         [TestCase("bread", 1.00)]
-        public void Given_the_basket_contains_an_individual_item_the_total_should_be_correct(string item, double expectedPrice)
+        public void Given_the_basket_contains_only_one_item_the_total_should_be_indvidual_item_price(string item, double expectedPrice)
         {
             var basket = new Basket();
             basket.Add(item);
@@ -39,6 +39,20 @@ namespace PriceCalculationTests
             var total = basket.Total();
 
             Assert.That(total, Is.EqualTo(2.95));
+        }
+
+        [Test]
+        public void Given_the_basket_has_2_butter_and_2_bread_the_total_should_be_3_10()
+        {
+            var basket = new Basket();
+            basket.Add("butter");
+            basket.Add("butter");
+            basket.Add("bread");
+            basket.Add("bread");
+
+            var total = basket.Total();
+
+            Assert.That(total, Is.EqualTo(3.10));
         }
     }
 }

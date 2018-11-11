@@ -5,7 +5,7 @@ namespace PriceCalculationExercise
 {
     public class Basket
     {
-        private List<string> _contents = new List<string>();
+        private readonly List<string> _contents = new List<string>();
 
         private readonly Dictionary<string, double> _priceList = new Dictionary<string, double>
         {
@@ -13,6 +13,11 @@ namespace PriceCalculationExercise
             {"milk", 1.15},
             {"bread", 1.00}
         };
+
+        public void Add(string item)
+        {
+            _contents.Add(item);
+        }
 
         public double Total()
         {
@@ -22,17 +27,31 @@ namespace PriceCalculationExercise
                 return total;
             }
 
-            foreach (var item in _contents)
-            {
-                total += _priceList[item];
-            }
+            total += CalculateRegularTotal();
+            total -= CalculateDiscounts();
 
             return total;
         }
 
-        public void Add(string item)
+        private double CalculateRegularTotal()
         {
-            _contents.Add(item);
+            var total = 0.0;
+            foreach (var item in _contents)
+            {
+                total += _priceList[item];
+            }
+            return total;
+        }
+
+        private double CalculateDiscounts()
+        {
+            var discount = 0.0;
+            var butters = _contents.Where(x => x == "butter");
+            if (butters.Count() == 2 && _contents.Contains("bread"))
+            {
+                discount += _priceList["bread"]/2;
+            }
+            return discount;
         }
     }
 }
