@@ -57,12 +57,10 @@ namespace PriceCalculationExercise
         private double CalculateDiscounts()
         {
             var discount = 0.0;
-
             foreach (var offer in _offers)
             {
                 discount += offer.DiscountFor(_contents, _priceList);
             }
-
             return discount;
         }
     }
